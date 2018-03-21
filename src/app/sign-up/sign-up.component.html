@@ -1,0 +1,47 @@
+<form [formGroup]="registerForm" (submit)="register(registerForm.value)" name="form1">
+  <div class="container center-align row">
+    <h3>Register</h3>
+    <div class="card-panel hoverable col s6 offset-s3">
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="icon_login" type="text" formControlName="login"
+               [ngClass]="{valid: registerForm.controls['login'].valid && registerForm.controls['login'].touched,
+                           invalid: !registerForm.controls['login'].valid && registerForm.controls['login'].touched  &&
+                           registerForm.controls['login'].value != null}">
+        <label for="icon_login">Login</label>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="icon_email" type="text" formControlName="email"
+               [ngClass]="{valid: registerForm.controls['password'].valid && registerForm.controls['password'].touched,
+                           invalid: !registerForm.controls['password'].valid && registerForm.controls['password'].touched  &&
+                           registerForm.controls['password'].value != null}">
+        <label for="icon_email">E-mail</label>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">enhanced_encryption</i>
+        <input id="icon_password" type="text" formControlName="password"
+               [ngClass]="{valid: registerForm.controls['password'].valid && registerForm.controls['password'].touched,
+                           invalid: !registerForm.controls['password'].valid && registerForm.controls['password'].touched  &&
+                           registerForm.controls['password'].value != null}">
+        <label for="icon_password">Password</label>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">enhanced_encryption</i>
+        <input id="icon_confirm_password" type="text" formControlName="confirmPassword"
+               [ngClass]="{valid: registerForm.controls['password'].valid && registerForm.controls['password'].touched,
+                           invalid: !registerForm.controls['password'].valid && registerForm.controls['password'].touched  &&
+                           registerForm.controls['password'].value != null}">
+        <label for="icon_confirm_password">Confirm password</label>
+      </div>
+
+      <button type="submit" class="btn" [disabled]="!registerForm.valid" style="width: 25%; margin-bottom: 30px;">Sign up
+      </button>
+
+    </div>
+  </div>
+</form>
