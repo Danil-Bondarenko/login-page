@@ -1,28 +1,26 @@
-<form [formGroup]="loginForm" (submit)="login(loginForm.value)" name="form1">
+<form [formGroup]="loginForm" (submit)="loginUser(loginForm.value)" name="form1">
   <div class="container center-align row">
     <h3>Please, Sign Up or Sign In</h3>
     <div class="card-panel hoverable col s6 offset-s3">
 
       <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
-        <input id="icon_login" type="text" formControlName="login"
-               [ngClass]="{valid: loginForm.controls['login'].valid && loginForm.controls['login'].touched,
-                           invalid: !loginForm.controls['login'].valid && loginForm.controls['login'].touched  &&
-                           loginForm.controls['login'].value != null}">
-        <label for="icon_login">Login</label>
+        <input id="icon_login" type="text" formControlName="username">
+        <label for="icon_login">Username</label>
       </div>
 
       <div class="input-field col s12">
         <i class="material-icons prefix">enhanced_encryption</i>
-        <input id="icon_password" type="text" formControlName="password"
-               [ngClass]="{valid: loginForm.controls['password'].valid && loginForm.controls['password'].touched,
-                           invalid: !loginForm.controls['password'].valid && loginForm.controls['password'].touched  &&
-                           loginForm.controls['password'].value != null}">
+        <input id="icon_password" type="password" formControlName="password">
         <label for="icon_password">Password</label>
       </div>
 
-      <button type="submit" class="btn" [disabled]="!loginForm.valid" style="width: 25%; margin-bottom: 30px;">Sign in
+      <button type="submit" class="btn" [disabled]="!loginForm.valid" style="min-width: 25%; margin-bottom: 30px;">Sign in
       </button>
+
+      <div class="error" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
 
       <div class="divider center-align"></div>
 

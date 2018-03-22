@@ -2,6 +2,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {SignInService} from '../sign-in.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,11 +11,12 @@ import {Router} from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
   registerForm: FormGroup;
+  errorMessage: string;
 
-  constructor(fb: FormBuilder, private router: Router) {
+  constructor(fb: FormBuilder, private router: Router, private signInService: SignInService) {
     this.registerForm = fb.group({
-      login: [, Validators.compose([Validators.required, Validators.minLength(10)])],
-      email: [, Validators.compose([Validators.required, Validators.minLength(10)])],
+      username: [, Validators.compose([Validators.required, Validators.minLength(10)])],
+      // email: [, Validators.compose([Validators.required, Validators.minLength(10)])],
       password: [, Validators.compose([Validators.required, Validators.minLength(8)])],
       confirmPassword: [, Validators.compose([Validators.required, Validators.minLength(8)])]
     });
@@ -23,8 +25,22 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
   }
 
-  register(post): void {
-
+  signUp(post): void {
+    console.log(post);
+    console.log(post.confirmPassword);
+    this.signInService.signUp({
+      name: post.username,
+      password: post.password,
+      passwordConf: post.confirmPassword,
+      admin: false
+    }).subscribe((response: any) => {
+      console.log(response);
+      if (response.success) {
+        this.errorMessage = 'Success!';
+      } else if (!response.success) {
+        this.errorMessage = response.message;
+      }
+    });
   }
 
 }
