@@ -23,7 +23,7 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">enhanced_encryption</i>
-        <input id="icon_password" type="text" formControlName="password"
+        <input id="icon_password" type="password" formControlName="password"
                [ngClass]="{valid: registerForm.controls['password'].valid && registerForm.controls['password'].touched,
                            invalid: !registerForm.controls['password'].valid && registerForm.controls['password'].touched  &&
                            registerForm.controls['password'].value != null}">
@@ -32,7 +32,7 @@
 
       <div class="input-field col s12">
         <i class="material-icons prefix">enhanced_encryption</i>
-        <input id="icon_confirm_password" type="text" formControlName="confirmPassword"
+        <input id="icon_confirm_password" type="password" formControlName="confirmPassword"
                [ngClass]="{valid: registerForm.controls['confirmPassword'].valid && registerForm.controls['confirmPassword'].touched,
                            invalid: !registerForm.controls['confirmPassword'].valid && registerForm.controls['confirmPassword'].touched  &&
                            registerForm.controls['confirmPassword'].value != null}">

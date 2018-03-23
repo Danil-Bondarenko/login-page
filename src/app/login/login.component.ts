@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router, NavigationExtras} from '@angular/router';
 import {SignInService} from '../sign-in.service';
+import {HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +24,14 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(post): void {
-    this.signInService.login({name: post.username, password: post.password, admin: true}).subscribe((response: any) => {
-      if (response.success) {
+    this.signInService.login({name: post.username, password: post.password, admin: true}).subscribe((res: any) => {
+      console.log(res);
+      if (res.success) {
         this.errorMessage = 'Success!';
-      } else if (!response.success) {
-        this.errorMessage = response.message;
+        localStorage.setItem('securityToken', res.token);
+        console.log(localStorage.getItem('securityToken'));
+      } else if (!res.success) {
+        this.errorMessage = res.message;
       }
     });
     // this.router.navigate(['parent-info/'], {queryParams: {'username': post.parentFirstName, 'password': post.parentLastName}});

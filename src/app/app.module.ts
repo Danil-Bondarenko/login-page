@@ -19,6 +19,7 @@ const appRoutes: Routes = [
   { path: 'sign-up', component: SignUpComponent}
 ];
 
+const token = localStorage.getItem('securityToken');
 
 @NgModule({
   declarations: [

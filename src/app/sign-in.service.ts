@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 const apiUrl = 'http://localhost:8080/api/';
 const headers = new HttpHeaders({'Content-Type': 'application/json'});
-const options = {headers: headers};
+let options = {headers: headers};
 
 @Injectable()
 export class SignInService {
@@ -12,8 +12,9 @@ export class SignInService {
   }
 
   login(user) {
-    console.log(user);
     return this.http.post(apiUrl + 'authenticate', user, options);
+    // const headersWithToken = new HttpHeaders({'Authorization': localStorage.getItem('securityToken')});
+    // options = {headers: headersWithToken};
   }
 
   signUp(newUser) {
