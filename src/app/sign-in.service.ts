@@ -21,4 +21,10 @@ export class SignInService {
     return this.http.post(apiUrl + 'create', newUser, options);
   }
 
+  showUserInfo() {
+    const headersForUserInfo = new HttpHeaders({'token': localStorage.getItem('securityToken')});
+    options = { headers: headersForUserInfo};
+    return this.http.post(apiUrl + 'user', {}, options);
+  }
+
 }

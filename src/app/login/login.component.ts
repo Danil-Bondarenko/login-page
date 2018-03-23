@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router, NavigationExtras} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 import {SignInService} from '../sign-in.service';
-import {HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -29,12 +28,11 @@ export class LoginComponent implements OnInit {
       if (res.success) {
         this.errorMessage = 'Success!';
         localStorage.setItem('securityToken', res.token);
-        console.log(localStorage.getItem('securityToken'));
+        this.router.navigate(['user-info'], {queryParams: {username: post.username}});
       } else if (!res.success) {
         this.errorMessage = res.message;
       }
     });
-    // this.router.navigate(['parent-info/'], {queryParams: {'username': post.parentFirstName, 'password': post.parentLastName}});
   }
 
 }

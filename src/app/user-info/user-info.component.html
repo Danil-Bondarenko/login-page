@@ -1,0 +1,25 @@
+<div class="container center-align row">
+
+  <div class="card-panel hoverable col s6 offset-s3">
+
+    <div *ngIf="userName">
+      <h5>Welcome, {{userName}}</h5>
+    </div>
+
+    <div>
+      <button class="btn" (click)="isTokenValid()">Check Token</button>
+    </div>
+
+    <div style="padding: 20px;" *ngIf="okMessage">
+      {{okMessage}}
+    </div>
+
+    <div class="error" style="padding: 20px;" *ngIf="errorStatus">
+      <p>Server response with: {{errorStatus}} status</p>
+    </div>
+
+  </div>
+
+</div>
+
+

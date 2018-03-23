@@ -13,10 +13,12 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { TimerPageComponent } from './timer-page/timer-page.component';
 import {SignInService} from './sign-in.service';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'sign-up', component: SignUpComponent}
+  { path: 'sign-up', component: SignUpComponent},
+  { path: 'user-info', component: UserInfoComponent}
 ];
 
 @NgModule({
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    TimerPageComponent
+    TimerPageComponent,
+    UserInfoComponent
   ],
   imports: [
     MaterializeModule,
