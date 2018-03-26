@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
 
   constructor(fb: FormBuilder, private router: Router, private signInService: SignInService) {
     this.loginForm = fb.group({
-      username: [],
-      password: []
+      username: [, Validators.minLength(1)],
+      password: [, Validators.minLength(1)]
     });
   }
 
@@ -23,15 +23,16 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(post): void {
-    this.signInService.login({name: post.username, password: post.password, admin: true}).subscribe((res: any) => {
+    this.signInService.login({name: post.username, password: post.password}).subscribe((res: any) => {
       console.log(res);
       if (res.success) {
         this.errorMessage = 'Success!';
         localStorage.setItem('securityToken', res.token);
         this.router.navigate(['user-info'], {queryParams: {username: post.username}});
-      } else if (!res.success) {
-        this.errorMessage = res.message;
       }
+    }, (err) => {
+      this.errorMessage = err.error.message;
+      console.log(err);
     });
   }
 

@@ -39,6 +39,10 @@
         <label for="icon_confirm_password">Confirm password</label>
       </div>
 
+      <div *ngIf="errorMessage" class="error">
+        {{errorMessage}}
+      </div>
+
       <button type="submit" class="btn" [disabled]="!registerForm.valid" style="min-width: 25%; margin-bottom: 30px;">Sign up
       </button>
 

@@ -1,5 +1,6 @@
 .error {
   color: darkred;
+  padding: 10px;
 }
 
 .card-panel {

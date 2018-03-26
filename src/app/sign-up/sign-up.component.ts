@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {SignInService} from '../sign-in.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,12 +14,12 @@ export class SignUpComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: string;
 
-  constructor(fb: FormBuilder, private router: Router, private signInService: SignInService) {
+  constructor(private fb: FormBuilder, private router: Router, private signInService: SignInService, private snackBar: MatSnackBar) {
     this.registerForm = fb.group({
-      username: [, Validators.compose([Validators.required, Validators.minLength(10)])],
+      username: [, Validators.compose([Validators.required, Validators.minLength(1)])],
       // email: [, Validators.compose([Validators.required, Validators.minLength(10)])],
-      password: [, Validators.compose([Validators.required, Validators.minLength(8)])],
-      confirmPassword: [, Validators.compose([Validators.required, Validators.minLength(8)])]
+      password: [, Validators.compose([Validators.required, Validators.minLength(1)])],
+      confirmPassword: [, Validators.compose([Validators.required, Validators.minLength(1)])]
     });
   }
 
@@ -26,20 +27,23 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp(post): void {
-    console.log(post);
-    console.log(post.confirmPassword);
     this.signInService.signUp({
       name: post.username,
       password: post.password,
       passwordConf: post.confirmPassword,
-      admin: false
     }).subscribe((response: any) => {
-      console.log(response);
       if (response.success) {
-        this.errorMessage = 'Success!';
-      } else if (!response.success) {
-        this.errorMessage = response.message;
+        this.errorMessage = null;
+        const snackBarRef = this.snackBar.open('You have been successfully registered', 'Cool!', {
+          duration: 3000
+        });
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.router.navigate(['']);
+        });
       }
+    }, (err) => {
+      console.log(err);
+      this.errorMessage = err.error.message;
     });
   }
 
