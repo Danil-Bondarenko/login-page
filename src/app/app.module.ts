@@ -14,11 +14,13 @@ import {SignInService} from './sign-in.service';
 import {UserInfoComponent} from './user-info/user-info.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material';
+import { RemindPasswordComponent } from './remind-password/remind-password.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'sign-up', component: SignUpComponent},
-  {path: 'user-info', component: UserInfoComponent}
+  {path: 'user-info', component: UserInfoComponent},
+  {path: 'remind-password', component: RemindPasswordComponent}
 ];
 
 @NgModule({
@@ -27,7 +29,8 @@ const appRoutes: Routes = [
     LoginComponent,
     SignUpComponent,
     TimerPageComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    RemindPasswordComponent
   ],
   imports: [
     MaterializeModule,

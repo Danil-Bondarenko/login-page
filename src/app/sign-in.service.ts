@@ -31,4 +31,8 @@ export class SignInService {
     return this.http.post(apiUrl + 'edit', newPassword, options);
   }
 
+  remindPassword(email) {
+    return this.http.post(apiUrl + 'mail', email, options);
+  }
+
 }

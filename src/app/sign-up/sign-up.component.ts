@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router, private signInService: SignInService, private snackBar: MatSnackBar) {
     this.registerForm = fb.group({
       username: [, Validators.compose([Validators.required, Validators.minLength(1)])],
-      // email: [, Validators.compose([Validators.required, Validators.minLength(10)])],
+      email: [, Validators.compose([Validators.required, Validators.minLength(1)])],
       password: [, Validators.compose([Validators.required, Validators.minLength(1)])],
       confirmPassword: [, Validators.compose([Validators.required, Validators.minLength(1)])]
     });
@@ -29,6 +29,7 @@ export class SignUpComponent implements OnInit {
   signUp(post): void {
     this.signInService.signUp({
       name: post.username,
+      mail: post.email,
       password: post.password,
       passwordConf: post.confirmPassword,
     }).subscribe((response: any) => {
@@ -45,6 +46,8 @@ export class SignUpComponent implements OnInit {
       console.log(err);
       this.errorMessage = err.error.message;
     });
+    this.registerForm.reset();
   }
+
 
 }

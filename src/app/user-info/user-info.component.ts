@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {SignInService} from '../sign-in.service';
 import {MatSnackBar} from '@angular/material';
-import {timer} from 'rxjs/observable/timer';
-import {take, map} from 'rxjs/operators';
 import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
@@ -15,15 +13,10 @@ export class UserInfoComponent implements OnInit {
   userName: string;
   okMessage: string;
   errorStatus: string;
-  countDown;
-  count = 900;
   changePasswordMessage: string;
   passwordForm;
 
   constructor(private signInService: SignInService, private snackBar: MatSnackBar, private router: Router, private fb: FormBuilder) {
-    this.countDown = timer(0, 1000).pipe(
-      take(this.count),
-      map(() => --this.count));
     this.passwordForm = fb.group({
       oldPassword: [, Validators.minLength(1)],
       newPassword: [, Validators.minLength(1)],

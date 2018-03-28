@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       if (res.success) {
         this.errorMessage = 'Success!';
         localStorage.setItem('securityToken', res.token);
+        localStorage.setItem('times', '900');
         this.router.navigate(['user-info'], {queryParams: {username: post.username}});
       }
     }, (err) => {
