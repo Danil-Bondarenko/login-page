@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
 
   loginUser(post) {
     this.signInService.login({name: post.username, password: post.password}).subscribe((res: any) => {
-      console.log(res);
       if (res.success) {
         this.errorMessage = 'Success!';
         localStorage.setItem('securityToken', res.token);
@@ -37,7 +36,6 @@ export class LoginComponent implements OnInit {
       }
     }, (err) => {
       this.errorMessage = err.error.message;
-      console.log(err);
     });
   }
 

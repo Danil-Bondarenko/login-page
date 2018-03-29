@@ -37,4 +37,10 @@ export class SignInService {
     return this.http.post(apiUrl + 'restore', email, options);
   }
 
+  changeUserPasswordAfterReset(newPassword, token) {
+    const headersForUserInfo = new HttpHeaders({'token': token});
+    options = {headers: headersForUserInfo};
+    return this.http.post(apiUrl + 'password_change', newPassword, options);
+  }
+
 }

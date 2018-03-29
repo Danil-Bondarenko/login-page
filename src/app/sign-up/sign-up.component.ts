@@ -47,7 +47,6 @@ export class SignUpComponent implements OnInit {
         });
       }
     }, (err) => {
-      console.log(err);
       this.errorMessage = err.error.message;
     });
     this.registerForm.controls['password'].reset();

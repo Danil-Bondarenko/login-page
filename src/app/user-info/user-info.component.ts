@@ -41,18 +41,18 @@ export class UserInfoComponent implements OnInit {
         duration: 3000
       });
       snackBarRef.afterDismissed().subscribe(() => {
-        this.router.navigate(['']);
+        return this.router.navigate(['']);
       });
     });
   }
 
   routeToChangePassword() {
-    this.router.navigate(['change-password'], {queryParams: {username: this.userName}});
+    return this.router.navigate(['change-password'], {queryParams: {username: this.userName}});
   }
 
-  logout(): void {
+  logout() {
     localStorage.removeItem('securityToken');
-    this.router.navigate(['']);
+    return this.router.navigate(['']);
   }
 
 }

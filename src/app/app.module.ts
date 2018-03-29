@@ -16,13 +16,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule, MatMenuModule, MatSnackBarModule} from '@angular/material';
 import { RemindPasswordComponent } from './remind-password/remind-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ResetPasswordVTokenComponent } from './reset-password-v-token/reset-password-v-token.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'sign-up', component: SignUpComponent},
   {path: 'user-info', component: UserInfoComponent},
   {path: 'reset-password', component: RemindPasswordComponent},
-  {path: 'change-password', component: ChangePasswordComponent}
+  {path: 'change-password', component: ChangePasswordComponent},
+  {path: 'password_change', component: ResetPasswordVTokenComponent}
 ];
 
 @NgModule({
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     TimerPageComponent,
     UserInfoComponent,
     RemindPasswordComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ResetPasswordVTokenComponent
   ],
   imports: [
     MaterializeModule,

@@ -29,7 +29,6 @@ export class RemindPasswordComponent implements OnInit {
   resetPassword(email) {
     this.signInService.resetPassword({mail: email.email}).subscribe((res) => {
       if (res) {
-        console.log(res);
         this.message = null;
         const snackBarRef = this.snackBar.open('Success request! Check your email', 'Ok', {
           duration: 3000
