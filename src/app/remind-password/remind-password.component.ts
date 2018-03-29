@@ -14,23 +14,28 @@ export class RemindPasswordComponent implements OnInit {
   message: string;
 
   constructor(private fb: FormBuilder, private signInService: SignInService, private snackBar: MatSnackBar, private router: Router) {
-    this.remindPasswordForm = fb.group({
-      email: [, Validators.minLength(1)]
-    });
+    this.createForm();
   }
 
   ngOnInit() {
   }
 
-  remindPassword(email): void {
-    this.signInService.remindPassword({mail: email.email}).subscribe((res) => {
+  createForm(): void {
+    this.remindPasswordForm = this.fb.group({
+      email: [, Validators.compose([Validators.minLength(5), Validators.required, Validators.pattern(this.signInService.emailRegExp)])]
+  });
+  }
+
+  resetPassword(email) {
+    this.signInService.resetPassword({mail: email.email}).subscribe((res) => {
       if (res) {
+        console.log(res);
         this.message = null;
         const snackBarRef = this.snackBar.open('Success request! Check your email', 'Ok', {
           duration: 3000
         });
         snackBarRef.afterDismissed().subscribe(() => {
-          this.router.navigate(['']);
+          return this.router.navigate(['']);
         });
       }
     }, (err) => {

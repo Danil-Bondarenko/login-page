@@ -7,6 +7,8 @@ let options = {headers: headers};
 
 @Injectable()
 export class SignInService {
+  // tslint:disable-next-line
+  emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   constructor(private http: HttpClient) {
   }
@@ -31,8 +33,8 @@ export class SignInService {
     return this.http.post(apiUrl + 'edit', newPassword, options);
   }
 
-  remindPassword(email) {
-    return this.http.post(apiUrl + 'mail', email, options);
+  resetPassword(email) {
+    return this.http.post(apiUrl + 'restore', email, options);
   }
 
 }

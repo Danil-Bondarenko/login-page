@@ -13,14 +13,16 @@ import {TimerPageComponent} from './timer-page/timer-page.component';
 import {SignInService} from './sign-in.service';
 import {UserInfoComponent} from './user-info/user-info.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatSnackBarModule} from '@angular/material';
+import {MatIconModule, MatMenuModule, MatSnackBarModule} from '@angular/material';
 import { RemindPasswordComponent } from './remind-password/remind-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'sign-up', component: SignUpComponent},
   {path: 'user-info', component: UserInfoComponent},
-  {path: 'remind-password', component: RemindPasswordComponent}
+  {path: 'reset-password', component: RemindPasswordComponent},
+  {path: 'change-password', component: ChangePasswordComponent}
 ];
 
 @NgModule({
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     SignUpComponent,
     TimerPageComponent,
     UserInfoComponent,
-    RemindPasswordComponent
+    RemindPasswordComponent,
+    ChangePasswordComponent
   ],
   imports: [
     MaterializeModule,
@@ -40,7 +43,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [SignInService],
   bootstrap: [AppComponent]

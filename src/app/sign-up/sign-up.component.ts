@@ -15,23 +15,27 @@ export class SignUpComponent implements OnInit {
   errorMessage: string;
 
   constructor(private fb: FormBuilder, private router: Router, private signInService: SignInService, private snackBar: MatSnackBar) {
-    this.registerForm = fb.group({
-      username: [, Validators.compose([Validators.required, Validators.minLength(1)])],
-      email: [, Validators.compose([Validators.required, Validators.minLength(1)])],
-      password: [, Validators.compose([Validators.required, Validators.minLength(1)])],
-      confirmPassword: [, Validators.compose([Validators.required, Validators.minLength(1)])]
-    });
   }
 
   ngOnInit() {
+    this.createForm();
   }
 
-  signUp(post): void {
+  private createForm(): void {
+    this.registerForm = this.fb.group({
+      username: [, Validators.compose([Validators.required, Validators.minLength(5)])],
+      email: [, Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern(this.signInService.emailRegExp)])],
+      password: [, Validators.compose([Validators.required, Validators.minLength(5)])],
+      confirmPassword: [, Validators.compose([Validators.required, Validators.minLength(5)])]
+    });
+  }
+
+  public signUp(post) {
     this.signInService.signUp({
       name: post.username,
       mail: post.email,
       password: post.password,
-      passwordConf: post.confirmPassword,
+      passwordConf: post.confirmPassword
     }).subscribe((response: any) => {
       if (response.success) {
         this.errorMessage = null;
@@ -39,14 +43,15 @@ export class SignUpComponent implements OnInit {
           duration: 3000
         });
         snackBarRef.afterDismissed().subscribe(() => {
-          this.router.navigate(['']);
+          return this.router.navigate(['']);
         });
       }
     }, (err) => {
       console.log(err);
       this.errorMessage = err.error.message;
     });
-    this.registerForm.reset();
+    this.registerForm.controls['password'].reset();
+    this.registerForm.controls['confirmPassword'].reset();
   }
 
 

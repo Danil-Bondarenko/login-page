@@ -12,24 +12,28 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string;
 
-  constructor(fb: FormBuilder, private router: Router, private signInService: SignInService) {
-    this.loginForm = fb.group({
-      username: [, Validators.minLength(1)],
-      password: [, Validators.minLength(1)]
-    });
+  constructor(private fb: FormBuilder, private router: Router, private signInService: SignInService) {
+    this.createForm();
   }
 
   ngOnInit() {
   }
 
-  loginUser(post): void {
+  createForm() {
+    this.loginForm = this.fb.group({
+      username: [, Validators.compose([Validators.required, Validators.minLength(5)])],
+      password: [, Validators.compose([Validators.required, Validators.minLength(5)])]
+    });
+  }
+
+  loginUser(post) {
     this.signInService.login({name: post.username, password: post.password}).subscribe((res: any) => {
       console.log(res);
       if (res.success) {
         this.errorMessage = 'Success!';
         localStorage.setItem('securityToken', res.token);
         localStorage.setItem('times', '900');
-        this.router.navigate(['user-info'], {queryParams: {username: post.username}});
+        return this.router.navigate(['user-info']);
       }
     }, (err) => {
       this.errorMessage = err.error.message;

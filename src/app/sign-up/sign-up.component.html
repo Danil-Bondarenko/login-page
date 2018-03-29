@@ -43,8 +43,12 @@
         {{errorMessage}}
       </div>
 
-      <button type="submit" class="btn" [disabled]="!registerForm.valid" style="min-width: 25%; margin-bottom: 30px;">Sign up
-      </button>
+      <div style="min-width: 25%; margin-bottom: 30px;">
+        <button type="submit" class="btn" [disabled]="!registerForm.valid" name="action">Sign Up
+          <i class="material-icons right">send</i>
+        </button>
+        <button type="button" class="btn" style="min-width: 25%;" routerLink="">Cancel</button>
+      </div>
 
     </div>
   </div>

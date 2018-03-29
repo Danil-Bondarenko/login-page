@@ -6,8 +6,20 @@
       <h5>Welcome, {{userName}}</h5>
     </div>
 
-    <div>
-      <button class="btn" (click)="isTokenValid()">Check Token</button>
+    <div style="padding: 10px">
+      <button class="btn" mat-icon-button [matMenuTriggerFor]="menu">Profile Menu</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item style="background: transparent" (click)="routeToChangePassword()">
+          <mat-icon>security</mat-icon>
+          Change password</button>
+        <button mat-menu-item (click)="isTokenValid()">
+          <mat-icon>stars</mat-icon>
+          Check token</button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>backspace</mat-icon>
+          Logout
+        </button>
+      </mat-menu>
     </div>
 
     <div style="padding: 20px;" *ngIf="okMessage">
@@ -16,46 +28,6 @@
 
     <div class="error" style="padding: 20px;" *ngIf="errorStatus">
       <p>Server response with: {{errorStatus}} status</p>
-    </div>
-
-    <div>
-      <form [formGroup]="passwordForm" (submit)="changeUserPassword(passwordForm.value)">
-        <h5>Change your password: </h5>
-        <div class="input-field col s12">
-          <i class="material-icons prefix">enhanced_encryption</i>
-          <input id="icon_password" type="password" formControlName="oldPassword"
-                 [ngClass]="{valid: passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched,
-                           invalid: !passwordForm.controls['oldPassword'].valid && passwordForm.controls['oldPassword'].touched  &&
-                           passwordForm.controls['oldPassword'].value != null}">
-          <label for="icon_password">Old Password</label>
-        </div>
-
-        <div class="input-field col s12">
-          <i class="material-icons prefix">enhanced_encryption</i>
-          <input id="icon_password_new" type="password" formControlName="newPassword"
-                 [ngClass]="{valid: passwordForm.controls['newPassword'].valid && passwordForm.controls['newPassword'].touched,
-                           invalid: !passwordForm.controls['newPassword'].valid && passwordForm.controls['newPassword'].touched  &&
-                           passwordForm.controls['newPassword'].value != null}">
-          <label for="icon_password">New Password</label>
-        </div>
-
-        <div class="input-field col s12">
-          <i class="material-icons prefix">enhanced_encryption</i>
-          <input id="icon_password_new_confirm" type="password" formControlName="newPasswordConf"
-                 [ngClass]="{valid: passwordForm.controls['newPasswordConf'].valid && passwordForm.controls['newPasswordConf'].touched,
-                           invalid: !passwordForm.controls['newPasswordConf'].valid && passwordForm.controls['newPasswordConf'].touched  &&
-                           passwordForm.controls['newPasswordConf'].value != null}">
-          <label for="icon_password">Confirm New Password</label>
-        </div>
-
-        <div class="error" *ngIf="changePasswordMessage">
-          {{changePasswordMessage}}
-        </div>
-
-        <button class="btn" [disabled]="!passwordForm.valid" type="submit">Change password</button>
-
-      </form>
-
     </div>
 
   </div>
