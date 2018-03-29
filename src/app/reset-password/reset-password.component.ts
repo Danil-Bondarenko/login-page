@@ -5,11 +5,11 @@ import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-remind-password',
-  templateUrl: './remind-password.component.html',
-  styleUrls: ['./remind-password.component.css']
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.css']
 })
-export class RemindPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit {
   remindPasswordForm: FormGroup;
   message: string;
 

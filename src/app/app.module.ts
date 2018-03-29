@@ -14,7 +14,7 @@ import {SignInService} from './sign-in.service';
 import {UserInfoComponent} from './user-info/user-info.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule, MatMenuModule, MatSnackBarModule} from '@angular/material';
-import { RemindPasswordComponent } from './remind-password/remind-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ResetPasswordVTokenComponent } from './reset-password-v-token/reset-password-v-token.component';
 
@@ -22,7 +22,7 @@ const appRoutes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'sign-up', component: SignUpComponent},
   {path: 'user-info', component: UserInfoComponent},
-  {path: 'reset-password', component: RemindPasswordComponent},
+  {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path: 'password_change', component: ResetPasswordVTokenComponent}
 ];
@@ -34,7 +34,7 @@ const appRoutes: Routes = [
     SignUpComponent,
     TimerPageComponent,
     UserInfoComponent,
-    RemindPasswordComponent,
+    ResetPasswordComponent,
     ChangePasswordComponent,
     ResetPasswordVTokenComponent
   ],
