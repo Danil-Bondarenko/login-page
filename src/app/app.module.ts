@@ -5,6 +5,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
+import {PushNotificationsModule} from 'ng-push';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
@@ -17,11 +18,12 @@ import {MatIconModule, MatMenuModule, MatSnackBarModule} from '@angular/material
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ResetPasswordVTokenComponent } from './reset-password-v-token/reset-password-v-token.component';
+import {AuthGuard} from './auth.guard';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'sign-up', component: SignUpComponent},
-  {path: 'user-info', component: UserInfoComponent},
+  {path: 'user-info', component: UserInfoComponent, canActivate: [AuthGuard]},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'change-password', component: ChangePasswordComponent},
   {path: 'password_change', component: ResetPasswordVTokenComponent}
@@ -37,6 +39,7 @@ const appRoutes: Routes = [
     ResetPasswordComponent,
     ChangePasswordComponent,
     ResetPasswordVTokenComponent
+
   ],
   imports: [
     MaterializeModule,
@@ -48,9 +51,10 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    PushNotificationsModule
   ],
-  providers: [SignInService],
+  providers: [SignInService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

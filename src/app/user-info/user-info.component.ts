@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {SignInService} from '../sign-in.service';
-import {MatSnackBar, MatIconModule} from '@angular/material';
-import {FormBuilder, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
+import {PushNotificationsService} from 'ng-push';
 
 @Component({
   selector: 'app-user-info',
@@ -14,14 +14,15 @@ export class UserInfoComponent implements OnInit {
   okMessage: string;
   errorStatus: string;
 
-  constructor(private signInService: SignInService, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private signInService: SignInService, private snackBar: MatSnackBar, private router: Router,
+              private _pushNotifications: PushNotificationsService) {
   }
 
   ngOnInit() {
-    this.showUserName();
+    this.setUserName();
   }
 
-  showUserName() {
+  setUserName() {
     return this.signInService.showUserInfo().subscribe((res: any) => {
       if (res) {
         this.userName = res.message.name;
@@ -32,6 +33,7 @@ export class UserInfoComponent implements OnInit {
   isTokenValid() {
     return this.signInService.showUserInfo().subscribe((res: any) => {
       if (res) {
+        console.log(res);
         this.okMessage = 'Your token is still valid';
       }
     }, (err: any) => {
@@ -55,4 +57,14 @@ export class UserInfoComponent implements OnInit {
     return this.router.navigate(['']);
   }
 
+  subscribe() {
+    this._pushNotifications.requestPermission();
+  }
+
+  sendNotif() {
+    this._pushNotifications.create('Test', {body: 'something'}).subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
+  }
 }
