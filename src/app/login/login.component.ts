@@ -29,9 +29,8 @@ export class LoginComponent implements OnInit {
   loginUser(post) {
     this.signInService.login({name: post.username, password: post.password}).subscribe((res: any) => {
       if (res.success) {
-        this.errorMessage = 'Success!';
+        this.errorMessage = null;
         localStorage.setItem('securityToken', res.token);
-        localStorage.setItem('times', '900');
         return this.router.navigate(['user-info']);
       }
     }, (err) => {

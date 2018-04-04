@@ -1,5 +1,7 @@
 import 'materialize-css';
 import {MaterializeModule} from 'angular2-materialize';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -15,9 +17,9 @@ import {SignInService} from './sign-in.service';
 import {UserInfoComponent} from './user-info/user-info.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule, MatMenuModule, MatSnackBarModule} from '@angular/material';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ResetPasswordVTokenComponent } from './reset-password-v-token/reset-password-v-token.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
+import {ChangePasswordComponent} from './change-password/change-password.component';
+import {ResetPasswordVTokenComponent} from './reset-password-v-token/reset-password-v-token.component';
 import {AuthGuard} from './auth.guard';
 
 const appRoutes: Routes = [
@@ -39,11 +41,11 @@ const appRoutes: Routes = [
     ResetPasswordComponent,
     ChangePasswordComponent,
     ResetPasswordVTokenComponent
-
   ],
   imports: [
     MaterializeModule,
     BrowserModule,
+    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
@@ -54,7 +56,7 @@ const appRoutes: Routes = [
     MatIconModule,
     PushNotificationsModule
   ],
-  providers: [SignInService, AuthGuard],
+  providers: [SignInService, AuthGuard ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

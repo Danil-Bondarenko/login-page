@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {SignInService} from '../sign-in.service';
 import {MatSnackBar} from '@angular/material';
 import {PushNotificationsService} from 'ng-push';
+import {SwPush} from '@angular/service-worker';
 
 @Component({
   selector: 'app-user-info',
@@ -14,12 +15,15 @@ export class UserInfoComponent implements OnInit {
   okMessage: string;
   errorStatus: string;
 
+  readonly VAPID_PUBLIC_KEY = 'BL-ssXChuaHObuC9ZFVR4jRSKbS_aNUVJ6zTnUtxspQ5nTiN97mtiJmkvnQa39aqKUOVOEHBEj1t0YwnP15yF6Q';
+
   constructor(private signInService: SignInService, private snackBar: MatSnackBar, private router: Router,
-              private _pushNotifications: PushNotificationsService) {
+              private _pushNotifications: PushNotificationsService, private swPush: SwPush) {
   }
 
   ngOnInit() {
     this.setUserName();
+    this.showMessages();
   }
 
   setUserName() {
@@ -57,14 +61,34 @@ export class UserInfoComponent implements OnInit {
     return this.router.navigate(['']);
   }
 
-  subscribe() {
-    this._pushNotifications.requestPermission();
+  subscribeToNotifications() {
+    this.swPush.requestSubscription({
+      serverPublicKey: this.VAPID_PUBLIC_KEY
+    })
+      .then(sub => {
+        console.log(JSON.stringify(sub));
+        this.signInService.saveUserPushSubscriptionToServer({
+          name: this.userName,
+          endpoint: sub.endpoint,
+          auth: JSON.parse(JSON.stringify(sub)).keys.auth,
+          p256dh: JSON.parse(JSON.stringify(sub)).keys.p256dh
+        }).subscribe((res) => {
+          if (res) {
+            console.log('success');
+          }
+        });
+      })
+      .catch(err => console.error('Could not subscribe to notifications', err));
   }
 
-  sendNotif() {
-    this._pushNotifications.create('Test', {body: 'something'}).subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    );
+  showMessages() {
+    this.swPush.messages
+      .subscribe(message => {
+        this._pushNotifications.create('Notification1123', {body: message.toString()}).subscribe(
+       //   res => console.log(res),
+       //   err => console.log(err)
+        );
+      });
   }
+
 }

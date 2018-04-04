@@ -43,4 +43,8 @@ export class SignInService {
     return this.http.post(apiUrl + 'password_change', newPassword, options);
   }
 
+  saveUserPushSubscriptionToServer(subscription) {
+    return this.http.post(apiUrl + 'subscribe', subscription, options);
+  }
+
 }

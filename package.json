@@ -8,7 +8,11 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+	"ngsw-config": "node_modules/.bin/ngsw-config dist src/ngsw-config.json",
+    "ngsw-copy": "cp node_modules/@angular/service-worker/ngsw-worker.js dist/",
+    "build-prod-ngsw": "ng build --prod && npm run ngsw-config && npm run ngsw-copy",
+    "serve-prod-ngsw": "npm run build-prod-ngsw && http-server dist -p 9000"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +34,7 @@
     "core-js": "^2.4.1",
     "firebase": "latest",
     "hammerjs": "^2.0.8",
+    "http-server": "^0.11.1",
     "jquery": "^2.2.4",
     "materialize-css": "^0.100.2",
     "ng-push": "^0.2.1",
