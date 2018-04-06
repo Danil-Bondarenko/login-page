@@ -1,4 +1,3 @@
-import 'materialize-css';
 import {MaterializeModule} from 'angular2-materialize';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -21,6 +20,7 @@ import {ResetPasswordComponent} from './reset-password/reset-password.component'
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {ResetPasswordVTokenComponent} from './reset-password-v-token/reset-password-v-token.component';
 import {AuthGuard} from './auth.guard';
+import { ToDoComponent } from './to-do/to-do.component';
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
@@ -28,7 +28,8 @@ const appRoutes: Routes = [
   {path: 'user-info', component: UserInfoComponent, canActivate: [AuthGuard]},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'change-password', component: ChangePasswordComponent},
-  {path: 'password_change', component: ResetPasswordVTokenComponent}
+  {path: 'password_change', component: ResetPasswordVTokenComponent},
+  {path: 'to-do-list/:userName', component: ToDoComponent}
 ];
 
 @NgModule({
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
     UserInfoComponent,
     ResetPasswordComponent,
     ChangePasswordComponent,
-    ResetPasswordVTokenComponent
+    ResetPasswordVTokenComponent,
+    ToDoComponent
   ],
   imports: [
     MaterializeModule,

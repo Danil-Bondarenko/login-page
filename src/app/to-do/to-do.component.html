@@ -1,0 +1,57 @@
+<div class="container center-align row">
+
+  <div class="card-panel hoverable col s6 offset-s3">
+
+    <h5>Hello, {{userName}}! <p>Here is your to-do list for today!</p></h5>
+
+    <div class="to-do-table">
+      <table>
+        <thead>
+        <tr>
+          <th>To-do:</th>
+          <th>Deadline:</th>
+          <th>Done:</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="todo">
+        <tr *ngFor="let task of todo">
+          <td>{{task.taskName}}</td>
+          <td>{{task.deadline}}</td>
+          <td>{{task.done}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!todo.length">
+        <p class="center-align">Yay! You've done everything for today! Go get some rest!</p>
+      </div>
+    </div>
+
+    <div class="left-align">
+      <button type="submit" class="btn-floating btn-small waves-effect waves-light red" (click)="addMode = !addMode">
+        <i class="material-icons">add</i>
+      </button>
+    </div>
+
+    <form [formGroup]="lForm" name="list-form" (submit)="addTask(lForm.value)" *ngIf="addMode">
+
+      <ul>
+        <li><label>Task:
+          <input formControlName="taskName">
+        </label>
+        </li>
+        <li><label>Deadline:
+          <input formControlName="deadline">
+        </label>
+        </li>
+        <li><label>Done:
+          <input formControlName="done">
+        </label>
+        </li>
+      </ul>
+
+      <button type="submit">Add</button>
+    </form>
+
+  </div>
+
+</div>
